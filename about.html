@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christopher Straface Portfolio</title>
+    <link rel="stylesheet" href="screen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+ <!-- Navigation Menu -->
+<div class="topnavcontainer">
+    <div class="topnav">
+        <!-- <div id="myLinks"> -->
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <!-- <a href="featured-work.html">Featured Work</a> -->
+            <!-- <a href="skills.html">Skills</a> -->
+            <a href="credits.html">Credits</a>
+            <a href="resume.html">Resume</a>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider">
+                    <!-- <img class="icon sun" src="media/sun.png" alt="Sun">
+                    <img class="icon moon" src="media/moon.png" alt="Moon"> -->
+                </span>
+            </label>
+    </div>
+</div>
+    <br>
+    <!-- Introduction to About Me page -->
+    <div id="test">
+        <div id="intro">
+            <h1>About Me</h1>
+            <p>Learn all about me, and who I am!</p>
+            <img src="media/Selfie.png" alt="Selfie of Christopher Straface" width="200" height="200">
+        </div>
+        <br>
+        <!-- Background -->
+        <h2>Background:</h2>
+        <div id="background" class="imgAndText">
+            <p class="pText">
+                I was born in Philadelphia and have lived here all my life. I’m a creative mind who likes to take things slow and peacefully, and I love animals.
+                When it was time for me to apply for universities, I was unsure of where I wanted to go or what I wanted to do. Drexel’s opportunities stuck out to someone like me, 
+                and it was during my first year I discovered my love for learning design, and found a place in the UXID major.
+            </p>
+            <img src="media/StylishPhillyMap.jpg" alt="Map of Philadelphia" width="200" height="200">
+        </div>
+        <br>
+        <!-- Experience -->
+        <h2>Experience:</h2>
+        <div id="experience" class="imgAndText">
+            <p class="pText">
+                I have three years of experience taking courses in design and working on different design projects, ranging in scope from proof of concepts 
+                to full interactable designs and web pages, as well as co-op experience which strengthens my ability to work in a team, complete professional quality work, and focus on meeting client needs.
+            </p>
+            <img src="media/Experience.jpg" alt="Experience Photo" width="200" height="200">
+        </div>
+        <br>
+        <!-- Goals -->
+        <h2>Goals:</h2>
+        <div id="goals" class="imgAndText">
+            <p class="pText">
+                My goal is to learn more about the world through design. I love to create designs because I find it to be a wonderful expression of creativity, 
+                and a way to expand my thinking in unique ways to accommodate for different people. It’s a gateway to learn more about people all while creating 
+                something new and unique, and I love being able to make something new and impactful.
+            </p>
+            <img src="media/Goals.jpg" alt="Goals Photo" width="230" height="200">
+        </div>
+
+        <!-- Contact information -->
+        <div id="contact">
+            <h5>Contact Information:</h5>
+            <ul>
+                <li>
+                    <img src="media/Mail.png" class="contactImg" alt="Envelope" width="20" height="20"> 
+                    <!-- Able to email directly via mailto link -->
+                    Email: <a href="mailto:cs3878@drexel.edu">cs3878@drexel.edu</a>
+                </li>
+                <li>
+                    <img src="media/PhoneIcon.png" class="contactImg" alt="Phone" width="20" height="20"> 
+                    Phone: (267)-800-6507
+                </li>
+                <li>
+                    <img src="media/LinkedIn.png" class="contactImg" alt="LinkedIn Logo" width="20" height="20"> 
+                    <a href="https://www.linkedin.com/in/christopher-straface-a84338276/">LinkedIn</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Script that contains functions for toggling navigation menu, dark mode, and having dark mode stay toggled on/off while visiting different pages -->
+    <script>
+        function toggleDarkMode(isEnabled) {
+    document.body.classList.toggle('dark-mode', isEnabled);
+    localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
+}
+
+function applyDarkModePreference() {
+    const darkMode = localStorage.getItem('darkMode') === 'on';
+    document.body.classList.toggle('dark-mode', darkMode);
+    document.getElementById('darkModeToggle').checked = darkMode;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    applyDarkModePreference();
+    const toggle = document.getElementById('darkModeToggle');
+    if (toggle) {
+        toggle.addEventListener('change', function (e) {
+            toggleDarkMode(e.target.checked);
+        });
+    }
+});
+</script>
+</body>
+</html>
