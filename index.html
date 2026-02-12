@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDM380 HWK2 Resubmission Christopher Straface</title>
+    <link rel="stylesheet" href="accessible.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+ <!-- Navigation Menu -->
+<!-- Skip link for keyboard users -->
+<a class="skip-link" href="#dyslexiaButton">Skip Navigation</a>
+<div class="topnavcontainer">
+    <div class="topnav">
+            <a href="index.html">Test</a>
+            <a href="index.html">About</a>
+            <a href="index.html">Credits</a>
+            <a href="index.html">Resume</a>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+    </div>
+</div>
+    <br>
+    <!-- Introduction to About Me page -->
+    <div id="test">
+        <header id="intro">
+            <div id="dyslexiaButton" class="dyslexia-button-container">
+                <button id="dyslexiaToggle" class="dyslexia-button">Dyslexia-Friendly Mode</button>
+            </div>
+            <h1>About Me</h1>
+            <p>Learn all about me, and who I am!</p>
+            <img src="media/Selfie.png" alt="Selfie of Christopher Straface" width="200" height="200">
+        </header>
+        <br>
+        <!-- Background -->
+        <h2>Background:</h2>
+        <div id="background" class="imgAndText">
+            <p class="pText">
+                I was born in Philadelphia and have lived here all my life. I’m a creative mind who likes to take things slow and peacefully, and I love animals.
+                When it was time for me to apply for universities, I was unsure of where I wanted to go or what I wanted to do. Drexel’s opportunities stuck out to someone like me, 
+                and it was during my first year I discovered my love for learning design, and found a place in the UXID major.
+            </p>
+            <img src="media/StylishPhillyMap.jpg" alt="Map of Philadelphia" width="200" height="200">
+        </div>
+        <br>
+        <!-- Experience -->
+        <h2>Experience:</h2>
+        <div id="experience" class="imgAndText">
+            <p class="pText">
+                I have three years of experience taking courses in design and working on different design projects, ranging in scope from proof of concepts 
+                to full interactable designs and web pages, as well as co-op experience which strengthens my ability to work in a team, complete professional quality work, and focus on meeting client needs.
+            </p>
+            <img src="media/Experience.jpg" alt="Photo of people talking with the word Experience above them written in chalk" width="200" height="200">
+        </div>
+        <br>
+        <!-- Goals -->
+        <h2>Goals:</h2>
+        <div id="goals" class="imgAndText">
+            <p class="pText">
+                My goal is to learn more about the world through design. I love to create designs because I find it to be a wonderful expression of creativity, 
+                and a way to expand my thinking in unique ways to accommodate for different people. It’s a gateway to learn more about people all while creating 
+                something new and unique, and I love being able to make something new and impactful.
+            </p>
+            <img src="media/Goals.jpg" alt="Photo of person holding up a mini chalkboard with the word Goals written on it" width="230" height="200">
+        </div>
+
+        <!-- Contact information -->
+        <div id="contact">
+            <h5>Contact Information:</h5>
+            <ul>
+                <li>
+                    <img src="media/Mail.png" class="contactImg" alt="Icon of an envelope" width="20" height="20"> 
+                    Email: <a href="mailto:cs3878@drexel.edu">cs3878@drexel.edu</a>
+                </li>
+                <li>
+                    <img src="media/PhoneIcon.png" class="contactImg" alt="Icon of a phone" width="20" height="20"> 
+                    Phone: (267)-800-6507
+                </li>
+                <li>
+                    <img src="media/LinkedIn.png" class="contactImg" alt="Icon of LinkedIn logo" width="20" height="20"> 
+                    <a href="https://www.linkedin.com/in/christopher-straface-a84338276/">LinkedIn</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode(isEnabled) {
+    document.body.classList.toggle('dark-mode', isEnabled);
+    localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
+}
+
+function applyDarkModePreference() {
+    const darkMode = localStorage.getItem('darkMode') === 'on';
+    document.body.classList.toggle('dark-mode', darkMode);
+    document.getElementById('darkModeToggle').checked = darkMode;
+}
+
+function toggleDyslexiaMode(isEnabled) {
+    document.body.classList.toggle('dyslexia-mode', isEnabled);
+    localStorage.setItem('dyslexiaMode', isEnabled ? 'on' : 'off');
+}
+
+function applyDyslexiaModePreference() {
+    const dyslexiaMode = localStorage.getItem('dyslexiaMode') === 'on';
+    document.body.classList.toggle('dyslexia-mode', dyslexiaMode);
+    const dyslexiaButton = document.getElementById('dyslexiaToggle');
+    if (dyslexiaMode) {
+        dyslexiaButton.classList.add('active');
+    } else {
+        dyslexiaButton.classList.remove('active');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    applyDarkModePreference();
+    applyDyslexiaModePreference();
+    const darkToggle = document.getElementById('darkModeToggle');
+    if (darkToggle) {
+        darkToggle.addEventListener('change', function (e) {
+            toggleDarkMode(e.target.checked);
+        });
+    }
+    const dyslexiaToggle = document.getElementById('dyslexiaToggle');
+    if (dyslexiaToggle) {
+        dyslexiaToggle.addEventListener('click', function () {
+            const isEnabled = !document.body.classList.contains('dyslexia-mode');
+            toggleDyslexiaMode(isEnabled);
+            dyslexiaToggle.classList.toggle('active', isEnabled);
+        });
+    }
+});
+</script>
+</body>
+</html>

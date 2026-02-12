@@ -1,0 +1,407 @@
+/* =========================
+   Base
+========================= */
+
+body {
+    font-size: 1.125rem;
+    /* restored desktop size */
+    background-color: #FFE7CD;
+    color: #3C2B15;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* =========================
+   Typography
+========================= */
+
+h1 {
+    color: #370E48;
+    font-size: clamp(2.5em, 0.5rem + 2vw, 4rem);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+
+h2 {
+    font-size: clamp(2.1785rem, 0.5rem + 2vw, 3.5rem);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+
+h5 {
+    font-size: clamp(1.125rem, 0.5rem + 2vw, 1.5rem);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+
+p {
+    color: #3C2B15;
+    font-family: Arial, sans-serif;
+    font-size: clamp(1.25rem, 0.5rem + 2vw, 1.45rem);
+    margin: 1em auto;
+    padding: 1.5em;
+    max-width: 70ch;
+    text-align: left;
+    line-height: 1.6em;
+}
+
+/* Center intro paragraph only */
+#intro p {
+    text-align: center;
+}
+
+/* =========================
+   Links
+========================= */
+
+a {
+    color: #0043BF;
+    text-decoration: underline;
+    font-family: Arial, sans-serif;
+    padding: 5px;
+}
+
+/* =========================
+   Images
+========================= */
+
+img {
+    width: 450px;
+    height: 450px;
+}
+
+.contactImg {
+    width: 25px;
+    height: 25px;
+    margin-bottom: -5px;
+}
+
+/* =========================
+   Layout Containers
+========================= */
+
+div {
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Image + text sections */
+.imgAndText {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.pText {
+    text-align: left;
+}
+
+/* =========================
+   Lists / Contact Info
+========================= */
+
+ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6em;
+    padding: 0;
+    list-style-position: inside;
+}
+
+li {
+    display: block;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    font-size: clamp(1rem, 0.5rem + 2vw, 1.25rem);
+}
+
+/* =========================
+   Navigation
+========================= */
+
+.topnavcontainer {
+    width: 100vw;
+    background-color: #433527;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.topnav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2px 0;
+    background-color: #433527;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.topnav a {
+    color: white;
+    padding: 14px 20px;
+    font-size: 17px;
+    text-decoration: none;
+}
+
+/* =========================
+   Dark Mode Toggle
+========================= */
+
+#darkModeToggle {
+    margin-left: 30px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    transition: all 0.4s;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 36px;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+input:checked+.slider {
+    background-color: #444;
+}
+
+input:checked+.slider::before {
+    transform: translateX(36px);
+}
+
+/* =========================
+   Dark Mode
+========================= */
+
+body.dark-mode {
+    background-color: #692B07;
+    color: #EDEDED;
+}
+
+body.dark-mode h1 {
+    color: #fdeab2;
+}
+
+body.dark-mode h2,
+body.dark-mode h5 {
+    color: #f9f3b0;
+}
+
+body.dark-mode p {
+    color: #ffffff;
+}
+
+body.dark-mode a {
+    color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #692B07;
+        color: #EDEDED;
+    }
+
+    body h1 {
+        color: #fdeab2;
+    }
+
+    body h2,
+    body h5 {
+        color: #f9f3b0;
+    }
+
+    body p {
+        color: #ffffff;
+    }
+
+    body a {
+        color: #ffffff;
+    }
+}
+
+/* Skip link: visually hidden but visible on keyboard focus */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    left: 10px;
+    top: 10px;
+    width: auto;
+    height: auto;
+    padding: 8px 12px;
+    background: #ffffff;
+    color: #333333;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+}
+
+/* =========================
+   Dyslexia-Friendly Mode
+========================= */
+
+body.dyslexia-mode h1,
+body.dyslexia-mode h2,
+body.dyslexia-mode h5 {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    letter-spacing: 0.15em;
+    word-spacing: 0.2em;
+    line-height: 2;
+}
+
+body.dyslexia-mode p {
+    font-family: 'OpenDyslexic-Regular', 'Arial', sans-serif;
+    letter-spacing: 0.15em;
+    word-spacing: 0.2em;
+    line-height: 2;
+}
+
+body.dyslexia-mode ul {
+    letter-spacing: 0.1em;
+    word-spacing: 0.15em;
+    line-height: 2;
+}
+
+body.dyslexia-mode li {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    letter-spacing: 0.1em;
+    word-spacing: 0.15em;
+    line-height: 2;
+}
+
+body.dyslexia-mode a {
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+}
+
+/* =========================
+   Dyslexia Button
+========================= */
+
+.dyslexia-button-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 1em;
+}
+
+.dyslexia-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #370E48;
+    color: #FFE7CD;
+    border: 2px solid #370E48;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
+    margin-right: 20px;
+}
+
+.dyslexia-button:focus {
+    outline: 3px solid peru;
+    outline-offset: 2px;
+}
+
+.dyslexia-button:hover {
+    background-color: #550d6e;
+    border-color: #550d6e;
+}
+
+.dyslexia-button.active {
+    background-color: #FFE7CD;
+    color: #370E48;
+    border-color: #370E48;
+}
+
+.dyslexia-button.active:focus {
+    outline: #3C2B15 solid 3px;
+    outline-offset: 2px;
+}
+
+.dyslexia-button.active:hover {
+    background-color: #ffe0b3;
+}
+
+body.dark-mode .dyslexia-button {
+    background-color: #f9f3b0;
+    color: #692B07;
+    border-color: #f9f3b0;
+}
+
+body.dark-mode .dyslexia-button:focus {
+    outline: 3px solid #04a0b8;
+    outline-offset: 2px;
+}
+
+body.dark-mode .dyslexia-button:hover {
+    background-color: #ffecb3;
+}
+
+body.dark-mode .dyslexia-button.active {
+    background-color: #692B07;
+    color: #f9f3b0;
+    border-color: #f9f3b0;
+}
+
+body.dark-mode .dyslexia-button.active:focus {
+    outline: 3px solid #04a0b8;
+    outline-offset: 2px;
+}
+
+body.dark-mode .dyslexia-button.active:hover {
+    background-color: #8b3a0e;
+}
