@@ -537,7 +537,7 @@ body.dark-mode .dyslexia-button.active:hover {
     }
 
     li {
-        font-size: clamp(0.9rem, 0.5rem + 1.5vw, 1rem);
+        font-size: clamp(1rem, 0.5rem + 1.5vw, 1.1rem);
     }
 
     /* Dyslexia button adjustments */
