@@ -78,20 +78,24 @@
             </article>
         </section>
 
+
+        <!-- Skip link for keyboard users to jump back to top (above contact) -->
+        <a class="skip-link skip-contact" href="#dyslexiaButton">Skip Contact</a>
         <!-- Contact Section -->
         <section id="contact" role="region" aria-labelledby="contact-heading" tabindex="0">
             <h2 id="contact-heading">Contact Information:</h2>
             <address>
-                <ul>
-                    <li tabindex="0">
+                <!-- explicitly mark the list for assistive tech -->
+                <ul role="list" aria-label="Contact methods">
+                    <li role="listitem" tabindex="0">
                         <img src="media/Mail.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
                         Email: <a href="mailto:cs3878@drexel.edu">cs3878@drexel.edu</a>
                     </li>
-                    <li tabindex="0">
+                    <li role="listitem" tabindex="0">
                         <img src="media/PhoneIcon.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
                         Phone: <a href="tel:+12678006507">(267)-800-6507</a>
                     </li>
-                    <li tabindex="0">
+                    <li role="listitem" tabindex="0">
                         <img src="media/LinkedIn.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
                         <a href="https://www.linkedin.com/in/christopher-straface-a84338276/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                     </li>

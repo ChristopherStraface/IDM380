@@ -311,6 +311,7 @@ body.dark-mode a {
     overflow: hidden;
 }
 
+/* default focused position: top-left corner for the main skip link */
 .skip-link:focus {
     left: 10px;
     top: 10px;
@@ -323,6 +324,37 @@ body.dark-mode a {
     border-radius: 4px;
     z-index: 10000;
 }
+
+/* When focusing the contact-specific skip link, show it where it lives in the flow */
+.skip-link.skip-contact {
+    /* hide visually but keep in document order and focusable */
+    position: static;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.skip-link.skip-contact:focus {
+    /* restore normal appearance when focused */
+    clip: auto;
+    clip-path: none;
+    height: auto;
+    width: auto;
+    overflow: visible;
+    margin-bottom: 0.5em;
+    background: #ffffff;
+    color: #333333;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    display: inline-block;
+}
+
 
 /* =========================
    Dyslexia-Friendly Mode
