@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDM380 HWK4 Christopher Straface</title>
+    <link rel="stylesheet" href="accessible.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!-- Skip link for keyboard users -->
+    <a class="skip-link" href="#contact-heading">Skip Navigation</a>
+    
+    <!-- Navigation Menu -->
+    <nav class="topnavcontainer" aria-label="Main navigation">
+        <ul class="topnav" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">Test</a></li>
+            <li role="none"><a href="index.html" role="menuitem">About</a></li>
+            <li role="none"><a href="index.html" role="menuitem">Credits</a></li>
+            <li role="none"><a href="index.html" role="menuitem">Resume</a></li>
+            <li role="none">
+                <label class="switch" aria-label="Toggle dark mode">
+                    <input type="checkbox" id="darkModeToggle" aria-label="Dark mode toggle">
+                    <span class="slider" aria-hidden="true"></span>
+                </label>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+      <section id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact Us</h2>
+        <form id="contactForm" novalidate>
+          <div class="field">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstNameError firstNameSuccess" aria-invalid="false">
+            <span id="firstNameError" class="error" role="alert" aria-live="assertive"></span>
+            <span id="firstNameSuccess" class="success" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastNameError lastNameSuccess" aria-invalid="false">
+            <span id="lastNameError" class="error" role="alert" aria-live="assertive"></span>
+            <span id="lastNameSuccess" class="success" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailError emailSuccess" aria-invalid="false">
+            <span id="emailError" class="error" role="alert" aria-live="assertive"></span>
+            <span id="emailSuccess" class="success" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="appointmentDate">Preferred Date <span class="field-optional">(optional)</span></label>
+            <input type="date" id="appointmentDate" name="appointmentDate" aria-describedby="appointmentDateHint appointmentDateError appointmentDateSuccess" aria-invalid="false">
+            <span id="appointmentDateHint" class="field-hint">Select a date using the date picker or type in MM/DD/YYYY format.</span>
+            <span id="appointmentDateError" class="error" role="alert" aria-live="assertive"></span>
+            <span id="appointmentDateSuccess" class="success" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="comment">Leave a comment <span class="field-optional">(optional)</span></label>
+            <textarea id="comment" name="comment" rows="4" aria-describedby="commentError commentSuccess" aria-invalid="false"></textarea>
+            <span id="commentError" class="error" role="alert" aria-live="assertive"></span>
+            <span id="commentSuccess" class="success" aria-live="polite"></span>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+
+    
+
+    <script>
+        function toggleDarkMode(isEnabled) {
+            document.body.classList.toggle('dark-mode', isEnabled);
+            localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
+        }
+
+        function applyDarkModePreference() {
+            const darkMode = localStorage.getItem('darkMode') === 'on';
+            document.body.classList.toggle('dark-mode', darkMode);
+            document.getElementById('darkModeToggle').checked = darkMode;
+        }
+
+        function toggleDyslexiaMode(isEnabled) {
+            document.body.classList.toggle('dyslexia-mode', isEnabled);
+            localStorage.setItem('dyslexiaMode', isEnabled ? 'on' : 'off');
+            const dyslexiaButton = document.getElementById('dyslexiaToggle');
+            dyslexiaButton.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        }
+
+        function applyDyslexiaModePreference() {
+            const dyslexiaMode = localStorage.getItem('dyslexiaMode') === 'on';
+            document.body.classList.toggle('dyslexia-mode', dyslexiaMode);
+            const dyslexiaButton = document.getElementById('dyslexiaToggle');
+            if (dyslexiaButton) {
+                dyslexiaButton.setAttribute('aria-pressed', dyslexiaMode ? 'true' : 'false');
+                if (dyslexiaMode) {
+                    dyslexiaButton.classList.add('active');
+                } else {
+                    dyslexiaButton.classList.remove('active');
+                }
+            }
+        }
+
+        // helpers for accessible form validation
+        function displayError(input, message) {
+            const errorElem = document.getElementById(input.id + 'Error');
+            const successElem = document.getElementById(input.id + 'Success');
+            errorElem.innerHTML = message ? '<i class="fa fa-times-circle" aria-hidden="true"></i> ' + message : '';
+            input.setAttribute('aria-invalid', message ? 'true' : 'false');
+            if (successElem) successElem.innerHTML = '';
+        }
+
+        function displaySuccess(input, message) {
+            const errorElem = document.getElementById(input.id + 'Error');
+            const successElem = document.getElementById(input.id + 'Success');
+            if (errorElem) errorElem.innerHTML = '';
+            if (successElem) successElem.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i> ' + message;
+            input.setAttribute('aria-invalid', 'false');
+        }
+
+        function validateField(input) {
+            // Required field check
+            if (input.hasAttribute('required') && !input.value.trim()) {
+                displayError(input, 'This field is required.');
+                return false;
+            }
+            // Email format check
+            if (input.type === 'email' && input.value.trim() && !input.checkValidity()) {
+                displayError(input, 'Please enter a valid email address.');
+                return false;
+            }
+            // Date range check (must not be in the past)
+            if (input.type === 'date' && input.value) {
+                const selected = new Date(input.value + 'T00:00:00');
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selected < today) {
+                    displayError(input, 'Please select today or a future date.');
+                    return false;
+                }
+            }
+            // Show success only if the field has a value (don't celebrate empty optional fields)
+            if (input.value.trim()) {
+                if (input.type === 'email') {
+                    displaySuccess(input, 'Looks good!');
+                } else if (input.type === 'date') {
+                    displaySuccess(input, 'Date selected.');
+                } else {
+                    displaySuccess(input, 'Looks good!');
+                }
+            } else {
+                // Optional field, empty — clear both messages silently
+                const errorElem = document.getElementById(input.id + 'Error');
+                const successElem = document.getElementById(input.id + 'Success');
+                if (errorElem) errorElem.innerHTML = '';
+                if (successElem) successElem.innerHTML = '';
+                input.setAttribute('aria-invalid', 'false');
+            }
+            return true;
+        }
+
+        function validateForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const fields = [form.firstName, form.lastName, form.email, form.appointmentDate, form.comment];
+            const valid = fields.map(validateField).every(Boolean);
+            if (valid) {
+                alert('Thank you! Your message has been sent.');
+                form.reset();
+                // Clear all success/error messages after reset
+                form.querySelectorAll('.error, .success').forEach(el => el.innerHTML = '');
+                form.querySelectorAll('input, textarea').forEach(el => el.setAttribute('aria-invalid', 'false'));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            applyDarkModePreference();
+            applyDyslexiaModePreference();
+            const darkToggle = document.getElementById('darkModeToggle');
+            if (darkToggle) {
+                darkToggle.addEventListener('change', function (e) {
+                    toggleDarkMode(e.target.checked);
+                });
+            }
+            const dyslexiaToggle = document.getElementById('dyslexiaToggle');
+            if (dyslexiaToggle) {
+                dyslexiaToggle.addEventListener('click', function () {
+                    const isEnabled = !document.body.classList.contains('dyslexia-mode');
+                    toggleDyslexiaMode(isEnabled);
+                    dyslexiaToggle.classList.toggle('active', isEnabled);
+                });
+            }
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                // prevent default submit on enter for non-textarea fields
+                contactForm.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // move focus to next field if possible
+                        const focusable = Array.from(contactForm.elements).filter(el =>
+                            (el.tagName.toLowerCase() !== 'fieldset' && el.type !== 'submit' && !el.disabled)
+                        );
+                        const idx = focusable.indexOf(e.target);
+                        if (idx > -1 && idx < focusable.length - 1) {
+                            focusable[idx + 1].focus();
+                        }
+                    }
+                });
+                contactForm.addEventListener('submit', validateForm);
+                const inputs = contactForm.querySelectorAll('input,textarea');
+                inputs.forEach(function (input) {
+                    input.addEventListener('input', function () { validateField(input); });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
