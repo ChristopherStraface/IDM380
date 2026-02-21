@@ -14,7 +14,7 @@
 <a class="skip-link" href="#dyslexiaButton">Skip Navigation</a>
 <div class="topnavcontainer">
     <div class="topnav">
-            <a href="index.html">Test</a>
+            <a href="index.html">Home</a>
             <a href="index.html">About</a>
             <a href="index.html">Credits</a>
             <a href="index.html">Resume</a>
@@ -90,50 +90,151 @@
 
     <script>
         function toggleDarkMode(isEnabled) {
-    document.body.classList.toggle('dark-mode', isEnabled);
-    localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
-}
+            document.body.classList.toggle('dark-mode', isEnabled);
+            localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
+        }
 
-function applyDarkModePreference() {
-    const darkMode = localStorage.getItem('darkMode') === 'on';
-    document.body.classList.toggle('dark-mode', darkMode);
-    document.getElementById('darkModeToggle').checked = darkMode;
-}
+        function applyDarkModePreference() {
+            const darkMode = localStorage.getItem('darkMode') === 'on';
+            document.body.classList.toggle('dark-mode', darkMode);
+            document.getElementById('darkModeToggle').checked = darkMode;
+        }
 
-function toggleDyslexiaMode(isEnabled) {
-    document.body.classList.toggle('dyslexia-mode', isEnabled);
-    localStorage.setItem('dyslexiaMode', isEnabled ? 'on' : 'off');
-}
+        function toggleDyslexiaMode(isEnabled) {
+            document.body.classList.toggle('dyslexia-mode', isEnabled);
+            localStorage.setItem('dyslexiaMode', isEnabled ? 'on' : 'off');
+            const dyslexiaButton = document.getElementById('dyslexiaToggle');
+            dyslexiaButton.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        }
 
-function applyDyslexiaModePreference() {
-    const dyslexiaMode = localStorage.getItem('dyslexiaMode') === 'on';
-    document.body.classList.toggle('dyslexia-mode', dyslexiaMode);
-    const dyslexiaButton = document.getElementById('dyslexiaToggle');
-    if (dyslexiaMode) {
-        dyslexiaButton.classList.add('active');
-    } else {
-        dyslexiaButton.classList.remove('active');
-    }
-}
+        function applyDyslexiaModePreference() {
+            const dyslexiaMode = localStorage.getItem('dyslexiaMode') === 'on';
+            document.body.classList.toggle('dyslexia-mode', dyslexiaMode);
+            const dyslexiaButton = document.getElementById('dyslexiaToggle');
+            if (dyslexiaButton) {
+                dyslexiaButton.setAttribute('aria-pressed', dyslexiaMode ? 'true' : 'false');
+                if (dyslexiaMode) {
+                    dyslexiaButton.classList.add('active');
+                } else {
+                    dyslexiaButton.classList.remove('active');
+                }
+            }
+        }
 
-document.addEventListener('DOMContentLoaded', function () {
-    applyDarkModePreference();
-    applyDyslexiaModePreference();
-    const darkToggle = document.getElementById('darkModeToggle');
-    if (darkToggle) {
-        darkToggle.addEventListener('change', function (e) {
-            toggleDarkMode(e.target.checked);
+        // helpers for accessible form validation
+        function displayError(input, message) {
+            const errorElem = document.getElementById(input.id + 'Error');
+            const successElem = document.getElementById(input.id + 'Success');
+            errorElem.innerHTML = message ? '<i class="fa fa-times-circle" aria-hidden="true"></i> ' + message : '';
+            input.setAttribute('aria-invalid', message ? 'true' : 'false');
+            if (successElem) successElem.innerHTML = '';
+        }
+
+        function displaySuccess(input, message) {
+            const errorElem = document.getElementById(input.id + 'Error');
+            const successElem = document.getElementById(input.id + 'Success');
+            if (errorElem) errorElem.innerHTML = '';
+            if (successElem) successElem.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i> ' + message;
+            input.setAttribute('aria-invalid', 'false');
+        }
+
+        function validateField(input) {
+            // Required field check
+            if (input.hasAttribute('required') && !input.value.trim()) {
+                displayError(input, 'This field is required.');
+                return false;
+            }
+            // Email format check
+            if (input.type === 'email' && input.value.trim() && !input.checkValidity()) {
+                displayError(input, 'Please enter a valid email address.');
+                return false;
+            }
+            // Date range check (must not be in the past)
+            if (input.type === 'date' && input.value) {
+                const selected = new Date(input.value + 'T00:00:00');
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selected < today) {
+                    displayError(input, 'Please select today or a future date.');
+                    return false;
+                }
+            }
+            // Show success only if the field has a value (don't celebrate empty optional fields)
+            if (input.value.trim()) {
+                if (input.type === 'email') {
+                    displaySuccess(input, 'Looks good!');
+                } else if (input.type === 'date') {
+                    displaySuccess(input, 'Date selected.');
+                } else {
+                    displaySuccess(input, 'Looks good!');
+                }
+            } else {
+                // Optional field, empty — clear both messages silently
+                const errorElem = document.getElementById(input.id + 'Error');
+                const successElem = document.getElementById(input.id + 'Success');
+                if (errorElem) errorElem.innerHTML = '';
+                if (successElem) successElem.innerHTML = '';
+                input.setAttribute('aria-invalid', 'false');
+            }
+            return true;
+        }
+
+        function validateForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const fields = [form.firstName, form.lastName, form.email, form.appointmentDate, form.comment];
+            const valid = fields.map(validateField).every(Boolean);
+            if (valid) {
+                alert('Thank you! Your message has been sent.');
+                form.reset();
+                // Clear all success/error messages after reset
+                form.querySelectorAll('.error, .success').forEach(el => el.innerHTML = '');
+                form.querySelectorAll('input, textarea').forEach(el => el.setAttribute('aria-invalid', 'false'));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            applyDarkModePreference();
+            applyDyslexiaModePreference();
+            const darkToggle = document.getElementById('darkModeToggle');
+            if (darkToggle) {
+                darkToggle.addEventListener('change', function (e) {
+                    toggleDarkMode(e.target.checked);
+                });
+            }
+            const dyslexiaToggle = document.getElementById('dyslexiaToggle');
+            if (dyslexiaToggle) {
+                dyslexiaToggle.addEventListener('click', function () {
+                    const isEnabled = !document.body.classList.contains('dyslexia-mode');
+                    toggleDyslexiaMode(isEnabled);
+                    dyslexiaToggle.classList.toggle('active', isEnabled);
+                });
+            }
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                // prevent default submit on enter for non-textarea fields
+                contactForm.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // move focus to next field if possible
+                        const focusable = Array.from(contactForm.elements).filter(el =>
+                            (el.tagName.toLowerCase() !== 'fieldset' && el.type !== 'submit' && !el.disabled)
+                        );
+                        const idx = focusable.indexOf(e.target);
+                        if (idx > -1 && idx < focusable.length - 1) {
+                            focusable[idx + 1].focus();
+                        }
+                    }
+                });
+                contactForm.addEventListener('submit', validateForm);
+                const inputs = contactForm.querySelectorAll('input,textarea');
+                inputs.forEach(function (input) {
+                    input.addEventListener('input', function () { validateField(input); });
+                });
+            }
         });
-    }
-    const dyslexiaToggle = document.getElementById('dyslexiaToggle');
-    if (dyslexiaToggle) {
-        dyslexiaToggle.addEventListener('click', function () {
-            const isEnabled = !document.body.classList.contains('dyslexia-mode');
-            toggleDyslexiaMode(isEnabled);
-            dyslexiaToggle.classList.toggle('active', isEnabled);
-        });
-    }
-});
-</script>
+    </script>
 </body>
 </html>

@@ -197,6 +197,101 @@ address ul {
 }
 
 /* =========================
+   Forms
+========================= */
+
+form {
+    max-width: 600px;
+    margin: 2em auto;
+    text-align: left;
+    padding: 0 1em;
+    box-sizing: border-box;
+}
+
+form .field {
+    margin-bottom: 1.25em;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.3em;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+form button[type="submit"] {
+    padding: 0.75em 1.5em;
+    font-size: 1rem;
+    background-color: #433527;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover,
+form button[type="submit"]:focus {
+    background-color: #1c1918f7;
+    outline: peru solid 3px;
+}
+
+.error {
+    color: #c00;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+}
+
+.success {
+    color: #1a7a1a;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+}
+
+.error .fa,
+.success .fa {
+    margin-right: 0.25em;
+}
+
+.field-hint {
+    display: block;
+    font-size: 0.85rem;
+    color: #5a4a38;
+    margin-top: 0.2em;
+    margin-bottom: 0.1em;
+}
+
+.field-optional {
+    font-size: 0.85rem;
+    font-weight: normal;
+    color: #6b5744;
+}
+
+body.dark-mode .success {
+    color: #7de87d;
+}
+
+body.dark-mode .field-hint {
+    color: #d4b89a;
+}
+
+body.dark-mode .field-optional {
+    color: #c4a882;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 0 0.5em;
+    }
+}
+
+/* =========================
    Dark Mode Toggle
 ========================= */
 
@@ -218,12 +313,13 @@ address ul {
 .slider {
     position: absolute;
     inset: 0;
-    transition: all 0.4s;
+    transition: background-color 0.4s;
     cursor: pointer;
-    background-color: #ccc;
+    background-color: #87AEDF;
     border-radius: 36px;
 }
 
+/* Thumb */
 .slider::before {
     content: "";
     position: absolute;
@@ -234,14 +330,37 @@ address ul {
     background-color: white;
     border-radius: 50%;
     transition: transform 0.4s;
+    z-index: 1;
+}
+
+/* Sun icon — shown on right in light mode */
+.slider::after {
+    content: "☀";
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    line-height: 1;
+    color: #f5c842;
+    pointer-events: none;
 }
 
 input:checked+.slider {
-    background-color: #444;
+    background-color: #2c2c3e;
 }
 
 input:checked+.slider::before {
     transform: translateX(36px);
+}
+
+/* Moon icon — shown on left in dark mode */
+input:checked+.slider::after {
+    content: "☾";
+    right: auto;
+    left: 7px;
+    color: #c8d8ff;
+    font-size: 14px;
 }
 
 /* =========================
@@ -277,30 +396,6 @@ body.dark-mode a {
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #692B07;
-        color: #EDEDED;
-    }
-
-    body h1 {
-        color: #fdeab2;
-    }
-
-    body h2,
-    body h5 {
-        color: #f9f3b0;
-    }
-
-    body p {
-        color: #ffffff;
-    }
-
-    body a {
-        color: #ffffff;
-    }
-}
-
 /* Skip link: visually hidden but visible on keyboard focus */
 .skip-link {
     position: absolute;
@@ -311,7 +406,6 @@ body.dark-mode a {
     overflow: hidden;
 }
 
-/* default focused position: top-left corner for the main skip link */
 .skip-link:focus {
     left: 10px;
     top: 10px;
@@ -324,37 +418,6 @@ body.dark-mode a {
     border-radius: 4px;
     z-index: 10000;
 }
-
-/* When focusing the contact-specific skip link, show it where it lives in the flow */
-.skip-link.skip-contact {
-    /* hide visually but keep in document order and focusable */
-    position: static;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.skip-link.skip-contact:focus {
-    /* restore normal appearance when focused */
-    clip: auto;
-    clip-path: none;
-    height: auto;
-    width: auto;
-    overflow: visible;
-    margin-bottom: 0.5em;
-    background: #ffffff;
-    color: #333333;
-    text-decoration: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    display: inline-block;
-}
-
 
 /* =========================
    Dyslexia-Friendly Mode

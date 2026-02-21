@@ -15,7 +15,7 @@
     <!-- Navigation Menu -->
     <nav class="topnavcontainer" aria-label="Main navigation">
         <ul class="topnav" role="menubar">
-            <li role="none"><a href="index.html" role="menuitem">Test</a></li>
+            <li role="none"><a href="index.html" role="menuitem">Contact</a></li>
             <li role="none"><a href="index.html" role="menuitem">About</a></li>
             <li role="none"><a href="index.html" role="menuitem">Credits</a></li>
             <li role="none"><a href="index.html" role="menuitem">Resume</a></li>
@@ -33,27 +33,59 @@
         <h2 id="contact-heading">Contact Us</h2>
         <form id="contactForm" novalidate>
           <div class="field">
-            <label for="firstName">First Name</label>
+            <label for="firstName">First Name *</label>
             <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstNameError firstNameSuccess" aria-invalid="false">
             <span id="firstNameError" class="error" role="alert" aria-live="assertive"></span>
             <span id="firstNameSuccess" class="success" aria-live="polite"></span>
           </div>
           <div class="field">
-            <label for="lastName">Last Name</label>
+            <label for="lastName">Last Name *</label>
             <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastNameError lastNameSuccess" aria-invalid="false">
             <span id="lastNameError" class="error" role="alert" aria-live="assertive"></span>
             <span id="lastNameSuccess" class="success" aria-live="polite"></span>
           </div>
           <div class="field">
-            <label for="email">Email</label>
+            <label for="email">Email *</label>
             <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailError emailSuccess" aria-invalid="false">
             <span id="emailError" class="error" role="alert" aria-live="assertive"></span>
             <span id="emailSuccess" class="success" aria-live="polite"></span>
           </div>
           <div class="field">
-            <label for="appointmentDate">Preferred Date <span class="field-optional">(optional)</span></label>
-            <input type="date" id="appointmentDate" name="appointmentDate" aria-describedby="appointmentDateHint appointmentDateError appointmentDateSuccess" aria-invalid="false">
-            <span id="appointmentDateHint" class="field-hint">Select a date using the date picker or type in MM/DD/YYYY format.</span>
+            <fieldset class="date-fieldset" aria-describedby="appointmentDateError appointmentDateSuccess">
+              <legend>Preferred Date <span class="field-optional">(optional)</span></legend>
+              <div class="date-selects">
+                <div class="date-select-group">
+                  <label for="dateMonth">Month</label>
+                  <select id="dateMonth" name="dateMonth" aria-invalid="false">
+                    <option value="">-- Month --</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+                <div class="date-select-group">
+                  <label for="dateDay">Day</label>
+                  <select id="dateDay" name="dateDay" aria-invalid="false">
+                    <option value="">-- Day --</option>
+                  </select>
+                </div>
+                <div class="date-select-group">
+                  <label for="dateYear">Year</label>
+                  <select id="dateYear" name="dateYear" aria-invalid="false">
+                    <option value="">-- Year --</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
             <span id="appointmentDateError" class="error" role="alert" aria-live="assertive"></span>
             <span id="appointmentDateSuccess" class="success" aria-live="polite"></span>
           </div>
@@ -70,7 +102,7 @@
 
     
 
-    <script>
+  <script>
         function toggleDarkMode(isEnabled) {
             document.body.classList.toggle('dark-mode', isEnabled);
             localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
