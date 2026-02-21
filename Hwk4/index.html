@@ -109,7 +109,13 @@
         }
 
         function applyDarkModePreference() {
-            const darkMode = localStorage.getItem('darkMode') === 'on';
+            const saved = localStorage.getItem('darkMode');
+            let darkMode;
+            if (saved !== null) {
+                darkMode = saved === 'on';
+            } else {
+                darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
             document.body.classList.toggle('dark-mode', darkMode);
             document.getElementById('darkModeToggle').checked = darkMode;
         }
@@ -118,7 +124,7 @@
             document.body.classList.toggle('dyslexia-mode', isEnabled);
             localStorage.setItem('dyslexiaMode', isEnabled ? 'on' : 'off');
             const dyslexiaButton = document.getElementById('dyslexiaToggle');
-            dyslexiaButton.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+            if (dyslexiaButton) dyslexiaButton.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
         }
 
         function applyDyslexiaModePreference() {
@@ -127,126 +133,180 @@
             const dyslexiaButton = document.getElementById('dyslexiaToggle');
             if (dyslexiaButton) {
                 dyslexiaButton.setAttribute('aria-pressed', dyslexiaMode ? 'true' : 'false');
-                if (dyslexiaMode) {
-                    dyslexiaButton.classList.add('active');
-                } else {
-                    dyslexiaButton.classList.remove('active');
-                }
+                dyslexiaButton.classList.toggle('active', dyslexiaMode);
             }
         }
 
-        // helpers for accessible form validation
-        function displayError(input, message) {
-            const errorElem = document.getElementById(input.id + 'Error');
-            const successElem = document.getElementById(input.id + 'Success');
-            errorElem.innerHTML = message ? '<i class="fa fa-times-circle" aria-hidden="true"></i> ' + message : '';
-            input.setAttribute('aria-invalid', message ? 'true' : 'false');
+        // Takes a string ID, not an input element
+        function displayError(id, message) {
+            const errorElem = document.getElementById(id + 'Error');
+            const successElem = document.getElementById(id + 'Success');
+            if (errorElem) errorElem.innerHTML = message ? '<i class="fa fa-times-circle" aria-hidden="true"></i> ' + message : '';
             if (successElem) successElem.innerHTML = '';
         }
 
-        function displaySuccess(input, message) {
-            const errorElem = document.getElementById(input.id + 'Error');
-            const successElem = document.getElementById(input.id + 'Success');
+        function displaySuccess(id, message) {
+            const errorElem = document.getElementById(id + 'Error');
+            const successElem = document.getElementById(id + 'Success');
             if (errorElem) errorElem.innerHTML = '';
             if (successElem) successElem.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i> ' + message;
-            input.setAttribute('aria-invalid', 'false');
         }
 
         function validateField(input) {
-            // Required field check
             if (input.hasAttribute('required') && !input.value.trim()) {
-                displayError(input, 'This field is required.');
+                displayError(input.id, 'This field is required.');
+                input.setAttribute('aria-invalid', 'true');
                 return false;
             }
-            // Email format check
             if (input.type === 'email' && input.value.trim() && !input.checkValidity()) {
-                displayError(input, 'Please enter a valid email address.');
+                displayError(input.id, 'Please enter a valid email address.');
+                input.setAttribute('aria-invalid', 'true');
                 return false;
             }
-            // Date range check (must not be in the past)
-            if (input.type === 'date' && input.value) {
-                const selected = new Date(input.value + 'T00:00:00');
+            // Valid — clear any previous error silently
+            displayError(input.id, '');
+            input.setAttribute('aria-invalid', 'false');
+            return true;
+        }
+
+        function validateDateSelects() {
+            const month = document.getElementById('dateMonth').value;
+            const day = document.getElementById('dateDay').value;
+            const year = document.getElementById('dateYear').value;
+            const anyFilled = month || day || year;
+            const allFilled = month && day && year;
+
+            ['dateMonth', 'dateDay', 'dateYear'].forEach(function(id) {
+                document.getElementById(id).setAttribute('aria-invalid', 'false');
+            });
+
+            if (anyFilled && !allFilled) {
+                displayError('appointmentDate', 'Please complete all three date fields (month, day, and year).');
+                ['dateMonth', 'dateDay', 'dateYear'].forEach(function(id) {
+                    if (!document.getElementById(id).value) {
+                        document.getElementById(id).setAttribute('aria-invalid', 'true');
+                    }
+                });
+                return false;
+            }
+
+            if (allFilled) {
+                const selected = new Date(year, month - 1, day);
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 if (selected < today) {
-                    displayError(input, 'Please select today or a future date.');
+                    displayError('appointmentDate', 'Please select today or a future date.');
+                    ['dateMonth', 'dateDay', 'dateYear'].forEach(function(id) {
+                        document.getElementById(id).setAttribute('aria-invalid', 'true');
+                    });
                     return false;
                 }
-            }
-            // Show success only if the field has a value (don't celebrate empty optional fields)
-            if (input.value.trim()) {
-                if (input.type === 'email') {
-                    displaySuccess(input, 'Looks good!');
-                } else if (input.type === 'date') {
-                    displaySuccess(input, 'Date selected.');
-                } else {
-                    displaySuccess(input, 'Looks good!');
-                }
+                // Valid — clear any previous error silently
+                displayError('appointmentDate', '');
             } else {
-                // Optional field, empty — clear both messages silently
-                const errorElem = document.getElementById(input.id + 'Error');
-                const successElem = document.getElementById(input.id + 'Success');
-                if (errorElem) errorElem.innerHTML = '';
-                if (successElem) successElem.innerHTML = '';
-                input.setAttribute('aria-invalid', 'false');
+                displayError('appointmentDate', '');
             }
+
             return true;
+        }
+
+        function populateDays() {
+            const monthSelect = document.getElementById('dateMonth');
+            const daySelect = document.getElementById('dateDay');
+            const yearSelect = document.getElementById('dateYear');
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            const currentDay = daySelect.value;
+
+            const daysInMonth = (month && year)
+                ? new Date(year, month, 0).getDate()
+                : (month ? new Date(2000, month, 0).getDate() : 31);
+
+            daySelect.innerHTML = '<option value="">-- Day --</option>';
+            for (var d = 1; d <= daysInMonth; d++) {
+                var opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d;
+                daySelect.appendChild(opt);
+            }
+            if (currentDay && parseInt(currentDay) <= daysInMonth) {
+                daySelect.value = currentDay;
+            }
+        }
+
+        function populateYears() {
+            var yearSelect = document.getElementById('dateYear');
+            var thisYear = new Date().getFullYear();
+            for (var y = thisYear; y <= thisYear + 5; y++) {
+                var opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                yearSelect.appendChild(opt);
+            }
         }
 
         function validateForm(e) {
             e.preventDefault();
-            const form = e.target;
-            const fields = [form.firstName, form.lastName, form.email, form.appointmentDate, form.comment];
-            const valid = fields.map(validateField).every(Boolean);
+            var form = e.target;
+            // Only pass actual input/textarea fields — date selects handled separately
+            var fields = [form.firstName, form.lastName, form.email, form.comment];
+            var valid = fields.map(validateField).every(Boolean);
+            valid = validateDateSelects() && valid;
+
             if (valid) {
                 alert('Thank you! Your message has been sent.');
                 form.reset();
-                // Clear all success/error messages after reset
-                form.querySelectorAll('.error, .success').forEach(el => el.innerHTML = '');
-                form.querySelectorAll('input, textarea').forEach(el => el.setAttribute('aria-invalid', 'false'));
+                populateDays();
+                form.querySelectorAll('.error, .success').forEach(function(el) { el.innerHTML = ''; });
+                form.querySelectorAll('input, textarea, select').forEach(function(el) { el.setAttribute('aria-invalid', 'false'); });
+            } else {
+                var firstInvalid = form.querySelector('[aria-invalid="true"]');
+                if (firstInvalid) firstInvalid.focus();
             }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
             applyDarkModePreference();
             applyDyslexiaModePreference();
-            const darkToggle = document.getElementById('darkModeToggle');
+
+            populateYears();
+            populateDays();
+
+            document.getElementById('dateMonth').addEventListener('change', populateDays);
+            document.getElementById('dateYear').addEventListener('change', populateDays);
+
+            var darkToggle = document.getElementById('darkModeToggle');
             if (darkToggle) {
                 darkToggle.addEventListener('change', function (e) {
                     toggleDarkMode(e.target.checked);
                 });
             }
-            const dyslexiaToggle = document.getElementById('dyslexiaToggle');
+
+            var dyslexiaToggle = document.getElementById('dyslexiaToggle');
             if (dyslexiaToggle) {
                 dyslexiaToggle.addEventListener('click', function () {
-                    const isEnabled = !document.body.classList.contains('dyslexia-mode');
+                    var isEnabled = !document.body.classList.contains('dyslexia-mode');
                     toggleDyslexiaMode(isEnabled);
                     dyslexiaToggle.classList.toggle('active', isEnabled);
                 });
             }
 
-            const contactForm = document.getElementById('contactForm');
+            var contactForm = document.getElementById('contactForm');
             if (contactForm) {
-                // prevent default submit on enter for non-textarea fields
-                contactForm.addEventListener('keydown', function(e) {
+                contactForm.addEventListener('keydown', function (e) {
                     if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
                         e.preventDefault();
                         e.stopPropagation();
-                        // move focus to next field if possible
-                        const focusable = Array.from(contactForm.elements).filter(el =>
-                            (el.tagName.toLowerCase() !== 'fieldset' && el.type !== 'submit' && !el.disabled)
-                        );
-                        const idx = focusable.indexOf(e.target);
+                        var focusable = Array.from(contactForm.elements).filter(function(el) {
+                            return el.tagName.toLowerCase() !== 'fieldset' && el.type !== 'submit' && !el.disabled;
+                        });
+                        var idx = focusable.indexOf(e.target);
                         if (idx > -1 && idx < focusable.length - 1) {
                             focusable[idx + 1].focus();
                         }
                     }
                 });
                 contactForm.addEventListener('submit', validateForm);
-                const inputs = contactForm.querySelectorAll('input,textarea');
-                inputs.forEach(function (input) {
-                    input.addEventListener('input', function () { validateField(input); });
-                });
             }
         });
     </script>
