@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home cs3878</title>
+    <link rel="stylesheet" href="accessible.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body id="portfoliobody">
+    <!-- Skip link for keyboard users -->
+    <a class="skip-link" href="#dyslexiaButton">Skip Navigation</a>
+    
+    <!-- Navigation Menu -->
+    <nav class="topnavcontainer" aria-label="Main navigation">
+        <ul class="topnav" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">About</a></li>
+            <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
+            <li role="none"><a href="home.html" role="menuitem">Home</a></li>
+            <li role="none"><a href="index.html" role="menuitem">Resume</a></li>
+            <li role="none">
+                <label class="switch" aria-label="Toggle dark mode">
+                    <input type="checkbox" id="darkModeToggle" aria-label="Dark mode toggle">
+                    <span class="slider" aria-hidden="true"></span>
+                </label>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="test" role="main" aria-label="Main content">
+        <!-- Introduction Section -->
+        <header id="intro" role="region" aria-labelledby="intro-heading" tabindex="0">
+            <section id="dyslexiaButton" class="dyslexia-button-container">
+                <button id="dyslexiaToggle" class="dyslexia-button" aria-pressed="false">Dyslexia-Friendly Mode</button>
+            </section>
+            <h1 id="intro-heading">Home (WIP)</h1>
+            <p>Learn all about me, and who I am!</p>
+            <img src="media/Selfie.png" alt="Selfie of Christopher Straface" width="200" height="200">
+        </header>
+
+        <!-- Background Section -->
+        <section id="background" role="region" aria-labelledby="background-heading" tabindex="0">
+            <h2 id="background-heading">Background:</h2>
+            <article class="imgAndText">
+                <p class="pText">
+                    I was born in Philadelphia and have lived here all my life. I'm a creative mind who likes to take things slow and peacefully, and I love animals.
+                    When it was time for me to apply for universities, I was unsure of where I wanted to go or what I wanted to do. Drexel's opportunities stuck out to someone like me, 
+                    and it was during my first year I discovered my love for learning design, and found a place in the UXID major.
+                </p>
+                <img src="media/StylishPhillyMap.jpg" alt="Map of Philadelphia" width="200" height="200">
+            </article>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" role="region" aria-labelledby="experience-heading" tabindex="0">
+            <h2 id="experience-heading">Experience:</h2>
+            <article class="imgAndText">
+                <p class="pText">
+                    I have three years of experience taking courses in design and working on different design projects, ranging in scope from proof of concepts 
+                    to full interactable designs and web pages, as well as co-op experience which strengthens my ability to work in a team, complete professional quality work, and focus on meeting client needs.
+                </p>
+                <img src="media/Experience.jpg" alt="People talking with the word Experience above them written in chalk" width="200" height="200">
+            </article>
+        </section>
+
+        <!-- Goals Section -->
+        <section id="goals" role="region" aria-labelledby="goals-heading" tabindex="0">
+            <h2 id="goals-heading">Goals:</h2>
+            <article class="imgAndText">
+                <p class="pText">
+                    My goal is to learn more about the world through design. I love to create designs because I find it to be a wonderful expression of creativity, 
+                    and a way to expand my thinking in unique ways to accommodate for different people. It's a gateway to learn more about people all while creating 
+                    something new and unique, and I love being able to make something new and impactful.
+                </p>
+                <img src="media/Goals.jpg" alt="Person holding up a mini chalkboard with the word Goals written on it" width="230" height="200">
+            </article>
+        </section>
+
+
+        <!-- Skip link for keyboard users to jump back to top (above contact) -->
+        <a class="skip-link skip-contact" href="#portfoliobody">Skip Contact</a>
+        <!-- Contact Section -->
+        <section id="contact" role="region" aria-labelledby="contact-heading" tabindex="0">
+            <h2 id="contact-heading">Contact Information:</h2>
+            <address>
+                <!-- explicitly mark the list for assistive tech -->
+                <ul role="list" aria-label="Contact methods">
+                    <li role="listitem" tabindex="0">
+                        <img src="media/Mail.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
+                        Email: <a href="mailto:cs3878@drexel.edu">cs3878@drexel.edu</a>
+                    </li>
+                    <li role="listitem" tabindex="0">
+                        <img src="media/PhoneIcon.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
+                        Phone: <a href="tel:+12678006507">(267)-800-6507</a>
+                    </li>
+                    <li role="listitem" tabindex="0">
+                        <img src="media/LinkedIn.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
+                        <a href="https://www.linkedin.com/in/christopher-straface-a84338276/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    </li>
+                </ul>
+            </address>
+        </section>
+    </main>
+
+   <script>
+        function toggleDarkMode(isEnabled) {
+            document.body.classList.toggle('dark-mode', isEnabled);
+            localStorage.setItem('darkMode', isEnabled ? 'on' : 'off');
+        }
+
+        function applyDarkModePreference() {
+            const darkMode = localStorage.getItem('darkMode') === 'on';
+            document.body.classList.toggle('dark-mode', darkMode);
+            document.getElementById('darkModeToggle').checked = darkMode;
+        }
+
+        function toggleDyslexiaMode(isEnabled) {
+            document.body.classList.toggle('dyslexia-mode', isEnabled);
+            localStorage.setItem('dyslexiaMode', isEnabled ? 'on' : 'off');
+            const dyslexiaButton = document.getElementById('dyslexiaToggle');
+            dyslexiaButton.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        }
+
+        function applyDyslexiaModePreference() {
+            const dyslexiaMode = localStorage.getItem('dyslexiaMode') === 'on';
+            document.body.classList.toggle('dyslexia-mode', dyslexiaMode);
+            const dyslexiaButton = document.getElementById('dyslexiaToggle');
+            if (dyslexiaButton) {
+                dyslexiaButton.setAttribute('aria-pressed', dyslexiaMode ? 'true' : 'false');
+                if (dyslexiaMode) {
+                    dyslexiaButton.classList.add('active');
+                } else {
+                    dyslexiaButton.classList.remove('active');
+                }
+            }
+        }
+
+        // helpers for accessible form validation
+        function displayError(input, message) {
+            const errorElem = document.getElementById(input.id + 'Error');
+            const successElem = document.getElementById(input.id + 'Success');
+            errorElem.innerHTML = message ? '<i class="fa fa-times-circle" aria-hidden="true"></i> ' + message : '';
+            input.setAttribute('aria-invalid', message ? 'true' : 'false');
+            if (successElem) successElem.innerHTML = '';
+        }
+
+        function displaySuccess(input, message) {
+            const errorElem = document.getElementById(input.id + 'Error');
+            const successElem = document.getElementById(input.id + 'Success');
+            if (errorElem) errorElem.innerHTML = '';
+            if (successElem) successElem.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i> ' + message;
+            input.setAttribute('aria-invalid', 'false');
+        }
+
+        function validateField(input) {
+            // Required field check
+            if (input.hasAttribute('required') && !input.value.trim()) {
+                displayError(input, 'This field is required.');
+                return false;
+            }
+            // Email format check
+            if (input.type === 'email' && input.value.trim() && !input.checkValidity()) {
+                displayError(input, 'Please enter a valid email address.');
+                return false;
+            }
+            // Date range check (must not be in the past)
+            if (input.type === 'date' && input.value) {
+                const selected = new Date(input.value + 'T00:00:00');
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selected < today) {
+                    displayError(input, 'Please select today or a future date.');
+                    return false;
+                }
+            }
+            // Show success only if the field has a value (don't celebrate empty optional fields)
+            if (input.value.trim()) {
+                if (input.type === 'email') {
+                    displaySuccess(input, 'Looks good!');
+                } else if (input.type === 'date') {
+                    displaySuccess(input, 'Date selected.');
+                } else {
+                    displaySuccess(input, 'Looks good!');
+                }
+            } else {
+                // Optional field, empty — clear both messages silently
+                const errorElem = document.getElementById(input.id + 'Error');
+                const successElem = document.getElementById(input.id + 'Success');
+                if (errorElem) errorElem.innerHTML = '';
+                if (successElem) successElem.innerHTML = '';
+                input.setAttribute('aria-invalid', 'false');
+            }
+            return true;
+        }
+
+        function validateForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const fields = [form.firstName, form.lastName, form.email, form.appointmentDate, form.comment];
+            const valid = fields.map(validateField).every(Boolean);
+            if (valid) {
+                alert('Thank you! Your message has been sent.');
+                form.reset();
+                // Clear all success/error messages after reset
+                form.querySelectorAll('.error, .success').forEach(el => el.innerHTML = '');
+                form.querySelectorAll('input, textarea').forEach(el => el.setAttribute('aria-invalid', 'false'));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            applyDarkModePreference();
+            applyDyslexiaModePreference();
+            const darkToggle = document.getElementById('darkModeToggle');
+            if (darkToggle) {
+                darkToggle.addEventListener('change', function (e) {
+                    toggleDarkMode(e.target.checked);
+                });
+            }
+            const dyslexiaToggle = document.getElementById('dyslexiaToggle');
+            if (dyslexiaToggle) {
+                dyslexiaToggle.addEventListener('click', function () {
+                    const isEnabled = !document.body.classList.contains('dyslexia-mode');
+                    toggleDyslexiaMode(isEnabled);
+                    dyslexiaToggle.classList.toggle('active', isEnabled);
+                });
+            }
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                // prevent default submit on enter for non-textarea fields
+                contactForm.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // move focus to next field if possible
+                        const focusable = Array.from(contactForm.elements).filter(el =>
+                            (el.tagName.toLowerCase() !== 'fieldset' && el.type !== 'submit' && !el.disabled)
+                        );
+                        const idx = focusable.indexOf(e.target);
+                        if (idx > -1 && idx < focusable.length - 1) {
+                            focusable[idx + 1].focus();
+                        }
+                    }
+                });
+                contactForm.addEventListener('submit', validateForm);
+                const inputs = contactForm.querySelectorAll('input,textarea');
+                inputs.forEach(function (input) {
+                    input.addEventListener('input', function () { validateField(input); });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
