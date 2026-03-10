@@ -169,6 +169,7 @@ address ul {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
 }
 
 .topnav {
@@ -546,6 +547,19 @@ body.dark-mode a {
     z-index: 10000;
 }
 
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* =========================
    Dyslexia-Friendly Mode
 ========================= */
@@ -897,4 +911,95 @@ body.dark-mode .dyslexia-button.active:hover {
         padding: 14px 20px;
         font-size: 17px;
     }
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Intro section vertical layout */
+#intro.imgAndText {
+    flex-direction: column;
+}
+
+/* Case study styles */
+.caseStudy1, .caseStudy2, .caseStudy3, .caseStudy4, .caseStudy5, .caseStudy6, .caseStudy7 {
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.caseStudy1::before, .caseStudy2::before, .caseStudy3::before, .caseStudy4::before, .caseStudy5::before, .caseStudy6::before, .caseStudy7::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: -1;
+    border-radius: 8px;
+}
+
+.caseStudy1 h1, .caseStudy1 h3, .caseStudy1 h4,
+.caseStudy2 h1, .caseStudy2 h3, .caseStudy2 h4,
+.caseStudy3 h1, .caseStudy3 h3, .caseStudy3 h4,
+.caseStudy4 h1, .caseStudy4 h3, .caseStudy4 h4,
+.caseStudy5 h1, .caseStudy5 h3, .caseStudy5 h4,
+.caseStudy6 h1, .caseStudy6 h3, .caseStudy6 h4,
+.caseStudy7 h1, .caseStudy7 h3, .caseStudy7 h4 {
+    font-size: 1.5rem;
+    margin: 0.5em 0;
+    position: relative;
+    z-index: 1;
+}
+
+.caseStudy1::before {
+    background-image: url('media/YouTube.png');
+}
+
+.caseStudy2::before {
+    background-image: url('media/frctzn.png');
+}
+
+.caseStudy3::before {
+    background-image: url('media/WebsiteLogo.png');
+}
+
+.caseStudy4::before {
+    background-image: url('media/Sobobatage.png');
+}
+
+.caseStudy5::before {
+    background-image: url('media/moon.png');
+}
+
+.caseStudy6::before {
+    background-image: url('media/MommyTellys.jpg');
+}
+
+.caseStudy7::before {
+    background-image: url('media/Instagram2.jpg');
+}
+
+/* Video sizing */
+.caseStudy4 video {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
 }
