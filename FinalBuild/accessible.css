@@ -112,11 +112,12 @@ img {
 }
 
 .caseStudyImg {
-    width: 50%;
+    width: 80%;
+    max-width: 320px;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 15px;
-    border: 0.5 rem solid #370E48;
+    margin-bottom: 10px;
+    border: 0.5rem solid #370E48;
 }
 /* =========================
    Layout Containers
@@ -1139,14 +1140,36 @@ body.dark-mode .dyslexia-button.active:hover {
     flex-direction: column;
 }
 
+/* Projects section — horizontal card layout */
+#projects {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+    padding: 10px 20px;
+}
+
+.workLinks {
+    display: flex;
+    flex: 1 1 380px;
+    max-width: 480px;
+}
+
 /* Case study styles */
 .caseStudy1, .caseStudy2, .caseStudy3, .caseStudy4, .caseStudy5, .caseStudy6, .caseStudy7 {
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     color: white;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     margin-bottom: 20px;
     position: relative;
+    max-width: 480px;
+    width: 100%;
+    flex: 1 1 auto;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .caseStudy1::before, .caseStudy2::before, .caseStudy3::before, .caseStudy4::before, .caseStudy5::before, .caseStudy6::before, .caseStudy7::before {
@@ -1171,10 +1194,12 @@ body.dark-mode .dyslexia-button.active:hover {
 .caseStudy5 h1, .caseStudy5 h3, .caseStudy5 h4,
 .caseStudy6 h1, .caseStudy6 h3, .caseStudy6 h4,
 .caseStudy7 h1, .caseStudy7 h3, .caseStudy7 h4 {
-    font-size: 1.5rem;
-    margin: 0.5em 0;
+    font-size: 1rem !important;
+    margin: 0.3em 0 !important;
+    padding: 0.2em 0 !important;
     position: relative;
     z-index: 1;
+    line-height: 1.4;
 }
 
 .caseStudy1::before {
