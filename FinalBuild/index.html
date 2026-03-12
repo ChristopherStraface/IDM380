@@ -10,31 +10,33 @@
 </head>
 <body id="portfoliobody">
     <!-- Skip link for keyboard users -->
-    <a class="skip-link" href="#dyslexiaButton">Skip Navigation</a>
+    <a class="skip-link" href="#intro">Skip Navigation</a>
     
     <!-- Navigation Menu -->
     <nav class="topnavcontainer" aria-label="Main navigation">
-        <ul class="topnav" role="menubar">
+        <ul class="topnav" id="mainNav" role="menubar">
             <li role="none"><a href="index.html" role="menuitem">About</a></li>
             <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
             <li role="none"><a href="home.html" role="menuitem">Home</a></li>
             <li role="none"><a href="index.html" role="menuitem">Resume</a></li>
-            <li role="none">
+        </ul>
+        <div class="dropdown">
+            <button class="dropdown-toggle" aria-label="Settings menu" aria-expanded="false">⚙️</button>
+            <div class="dropdown-menu" aria-hidden="true">
                 <label class="switch" aria-label="Toggle dark mode">
                     <input type="checkbox" id="darkModeToggle" aria-label="Dark mode toggle">
                     <span class="slider" aria-hidden="true"></span>
                 </label>
-            </li>
-        </ul>
+                <button id="dyslexiaToggle" class="dyslexia-button" aria-pressed="false">Dyslexia-Friendly Mode</button>
+            </div>
+        </div>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">&#9776;</button>
     </nav>
 
     <!-- Main Content -->
     <main id="test" role="main" aria-label="Main content">
         <!-- Introduction Section -->
         <header id="intro" role="region" aria-labelledby="intro-heading" tabindex="0">
-            <section id="dyslexiaButton" class="dyslexia-button-container">
-                <button id="dyslexiaToggle" class="dyslexia-button" aria-pressed="false">Dyslexia-Friendly Mode</button>
-            </section>
             <h1 id="intro-heading">About Me</h1>
             <p>Learn all about me, and who I am!</p>
             <img src="media/Selfie.png" alt="Selfie of Christopher Straface" width="200" height="200">
@@ -89,7 +91,7 @@
                 <ul role="list" aria-label="Contact methods">
                     <li role="listitem" tabindex="0">
                         <img src="media/Mail.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
-                        Email: <a href="mailto:cs3878@drexel.edu">cs3878@drexel.edu</a>
+                        Email: <a href="/cdn-cgi/l/email-protection#fe9d8dcdc6c9c6be9a8c9b869b92d09b9a8b"><span class="__cf_email__" data-cfemail="274454141f101f674355425f424b09424352">[email&#160;protected]</span></a>
                     </li>
                     <li role="listitem" tabindex="0">
                         <img src="media/PhoneIcon.png" class="contactImg" alt="" width="20" height="20" aria-hidden="true"> 
@@ -224,6 +226,25 @@
                     const isEnabled = !document.body.classList.contains('dyslexia-mode');
                     toggleDyslexiaMode(isEnabled);
                     dyslexiaToggle.classList.toggle('active', isEnabled);
+                });
+            }
+
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            if (dropdownToggle && dropdownMenu) {
+                dropdownToggle.addEventListener('click', function () {
+                    const isOpen = dropdownMenu.classList.contains('open');
+                    dropdownMenu.classList.toggle('open', !isOpen);
+                    dropdownToggle.setAttribute('aria-expanded', !isOpen);
+                    dropdownMenu.setAttribute('aria-hidden', isOpen);
+                });
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('open');
+                        dropdownToggle.setAttribute('aria-expanded', 'false');
+                        dropdownMenu.setAttribute('aria-hidden', 'true');
+                    }
                 });
             }
 

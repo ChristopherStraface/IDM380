@@ -14,18 +14,23 @@
     
     <!-- Navigation Menu -->
     <nav class="topnavcontainer" aria-label="Main navigation">
-        <ul class="topnav" role="menubar">
+        <ul class="topnav" id="mainNav" role="menubar">
             <li role="none"><a href="index.html" role="menuitem">About</a></li>
             <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
             <li role="none"><a href="home.html" role="menuitem">Home</a></li>
             <li role="none"><a href="index.html" role="menuitem">Resume</a></li>
-            <li role="none">
+        </ul>
+        <div class="dropdown">
+            <button class="dropdown-toggle" aria-label="Settings menu" aria-expanded="false">⚙️</button>
+            <div class="dropdown-menu" aria-hidden="true">
                 <label class="switch" aria-label="Toggle dark mode">
                     <input type="checkbox" id="darkModeToggle" aria-label="Dark mode toggle">
                     <span class="slider" aria-hidden="true"></span>
                 </label>
-            </li>
-        </ul>
+                <button id="dyslexiaToggle" class="dyslexia-button" aria-pressed="false">Dyslexia-Friendly Mode</button>
+            </div>
+        </div>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">&#9776;</button>
     </nav>
 
     <main>
@@ -269,6 +274,19 @@
             applyDarkModePreference();
             applyDyslexiaModePreference();
 
+            // Hamburger menu
+            const hamburger = document.getElementById('navHamburger');
+            const mainNav = document.getElementById('mainNav');
+            if (hamburger && mainNav) {
+                hamburger.addEventListener('click', function () {
+                    const isOpen = mainNav.classList.contains('open');
+                    mainNav.classList.toggle('open', !isOpen);
+                    hamburger.setAttribute('aria-expanded', String(!isOpen));
+                    hamburger.textContent = isOpen ? '\u2630' : '\u2715';
+                    hamburger.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+                });
+            }
+
             populateYears();
             populateDays();
 
@@ -288,6 +306,25 @@
                     var isEnabled = !document.body.classList.contains('dyslexia-mode');
                     toggleDyslexiaMode(isEnabled);
                     dyslexiaToggle.classList.toggle('active', isEnabled);
+                });
+            }
+
+            var dropdownToggle = document.querySelector('.dropdown-toggle');
+            var dropdownMenu = document.querySelector('.dropdown-menu');
+            if (dropdownToggle && dropdownMenu) {
+                dropdownToggle.addEventListener('click', function () {
+                    var isOpen = dropdownMenu.classList.contains('open');
+                    dropdownMenu.classList.toggle('open', !isOpen);
+                    dropdownToggle.setAttribute('aria-expanded', !isOpen);
+                    dropdownMenu.setAttribute('aria-hidden', isOpen);
+                });
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('open');
+                        dropdownToggle.setAttribute('aria-expanded', 'false');
+                        dropdownMenu.setAttribute('aria-hidden', 'true');
+                    }
                 });
             }
 
