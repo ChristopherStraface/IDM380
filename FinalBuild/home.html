@@ -86,7 +86,14 @@
         }
 
         function applyDarkModePreference() {
-            const darkMode = localStorage.getItem('darkMode') === 'on';
+            const stored = localStorage.getItem('darkMode');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            // Use stored preference if it exists, otherwise fall back to system preference
+            const darkMode = stored !== null ? stored === 'on' : systemPrefersDark;
+            // Write back to localStorage so the toggle can override it going forward
+            if (stored === null) {
+                localStorage.setItem('darkMode', darkMode ? 'on' : 'off');
+            }
             document.body.classList.toggle('dark-mode', darkMode);
             document.getElementById('darkModeToggle').checked = darkMode;
         }
