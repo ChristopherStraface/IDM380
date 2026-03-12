@@ -15,10 +15,9 @@
     <!-- Navigation Menu -->
     <nav class="topnavcontainer" aria-label="Main navigation">
         <ul class="topnav" id="mainNav" role="menubar">
-            <li role="none"><a href="index.html" role="menuitem">About</a></li>
+            <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+            <li role="none"><a href="about.html" role="menuitem">About</a></li>
             <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
-            <li role="none"><a href="home.html" role="menuitem">Home</a></li>
-            <li role="none"><a href="index.html" role="menuitem">Resume</a></li>
         </ul>
         <div class="dropdown">
             <button class="dropdown-toggle" aria-label="Settings menu" aria-expanded="false">⚙️</button>
@@ -298,6 +297,13 @@
                 darkToggle.addEventListener('change', function (e) {
                     toggleDarkMode(e.target.checked);
                 });
+                darkToggle.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        darkToggle.checked = !darkToggle.checked;
+                        toggleDarkMode(darkToggle.checked);
+                    }
+                });
             }
 
             var dyslexiaToggle = document.getElementById('dyslexiaToggle');
@@ -331,7 +337,7 @@
             var contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
+                    if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea' && e.target.id !== 'darkModeToggle') {
                         e.preventDefault();
                         e.stopPropagation();
                         var focusable = Array.from(contactForm.elements).filter(function(el) {

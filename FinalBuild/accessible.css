@@ -70,9 +70,19 @@ p {
     line-height: 1.6em;
 }
 
-/* Center intro paragraph only */
-#intro p {
+/* Intro paragraph and project segue */
+#intro p{
     text-align: center;
+    margin-bottom: 0.1rem;
+    margin-top: -2rem;
+}
+
+#intro p.intropHome {
+    text-align: left;
+}
+
+#projectSegue {
+    text-align: left;
 }
 
 /* =========================
@@ -101,6 +111,13 @@ img {
     margin-bottom: -5px;
 }
 
+.caseStudyImg {
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 0.5 rem solid #370E48;
+}
 /* =========================
    Layout Containers
 ========================= */
@@ -144,7 +161,7 @@ address {
         padding: 8px;
     }
     .topnav {
-        display: none;
+        display: flex;
         flex-direction: column;
         position: absolute;
         top: 100%;
@@ -152,9 +169,12 @@ address {
         width: 100%;
         background-color: #433527;
         z-index: 999;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
     }
     .topnav.open {
-        display: flex;
+        max-height: 300px;
     }
     .nav-hamburger {
         display: block;
@@ -282,15 +302,24 @@ address ul {
     background-color: #433527;
     border: 1px solid #555;
     border-radius: 4px;
-    padding: 10px;
-    display: none;
+    padding: 10px 16px;
+    min-width: 220px;
+    display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     z-index: 1001;
+    /* Transition animation */
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.95);
+    transform-origin: top right;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .dropdown-menu.open {
-    display: flex;
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    pointer-events: auto;
 }
 
 .dropdown-menu .switch {
@@ -299,8 +328,9 @@ address ul {
 
 .dropdown-menu .dyslexia-button {
     margin: 0;
-    padding: 8px 12px;
+    padding: 8px 14px;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 /* =========================
@@ -470,6 +500,11 @@ body.dark-mode .field-optional {
 
 .switch input {
     opacity: 0;
+}
+
+.switch input:focus-visible + .slider {
+    outline: 3px solid peru;
+    outline-offset: 3px;
 }
 
 .slider {
@@ -725,7 +760,7 @@ body.dyslexia-mode a {
     border-radius: 4px;
     cursor: pointer;
     font-family: Arial, sans-serif;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     margin-right: 20px;
 }
 
@@ -794,6 +829,18 @@ body.dark-mode .dyslexia-button.active:hover {
         padding-top: 100px;
     }
 
+    /* On mobile the gear sits at the left edge, so open the dropdown
+       to the right instead of the right to prevent it being clipped */
+    .dropdown-menu {
+        right: auto;
+        left: 0;
+        transform-origin: top left;
+    }
+
+    .dropdown-menu.open {
+        transform: translateY(0) scaleY(1);
+    }
+
     h1 {
         font-size: clamp(1.75rem, 0.5rem + 1.5vw, 2.5rem);
         margin: 0.5em 0.25em;
@@ -839,15 +886,18 @@ body.dark-mode .dyslexia-button.active:hover {
 
     /* Navigation adjustments for mobile — nav links hidden, hamburger shown */
     .topnav {
-        display: none;
+        display: flex;
         flex-direction: column;
         width: 100%;
         background-color: #433527;
         padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
     }
 
     .topnav.open {
-        display: flex;
+        max-height: 300px;
     }
 
     .topnav li {
@@ -926,6 +976,19 @@ body.dark-mode .dyslexia-button.active:hover {
         padding: 8px 15px;
         font-size: 0.9rem;
         margin-right: 10px;
+    }
+
+    /* Case study: scale up images and scale down text on mobile */
+    .caseStudy1 .caseStudyImg,
+    .caseStudy2 .caseStudyImg {
+        width: 90% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .caseStudy1 h1, .caseStudy1 h3, .caseStudy1 h4,
+    .caseStudy2 h1, .caseStudy2 h3, .caseStudy2 h4 {
+        font-size: 1rem !important;
     }
 }
 
@@ -1081,7 +1144,7 @@ body.dark-mode .dyslexia-button.active:hover {
     padding: 20px;
     border-radius: 8px;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     margin-bottom: 20px;
     position: relative;
 }
@@ -1115,11 +1178,27 @@ body.dark-mode .dyslexia-button.active:hover {
 }
 
 .caseStudy1::before {
-    background-image: url('media/YouTube.png');
+    background-image: none;
 }
 
 .caseStudy2::before {
-    background-image: url('media/frctzn.png');
+    background-image: none;
+}
+
+.caseStudy1 {
+    background-color: #be682b;
+}
+
+.caseStudy2 {
+    background-color: #A0522D;
+}
+
+body.dark-mode .caseStudy1 {
+    background-color: #D2691E;
+}
+
+body.dark-mode .caseStudy2 {
+    background-color: #B8860B;
 }
 
 .caseStudy3::before {
@@ -1147,4 +1226,12 @@ body.dark-mode .dyslexia-button.active:hover {
     max-width: 300px;
     width: 100%;
     height: auto;
+}
+
+#caseStudyHeader {
+    color: #0d0d0d;
+}
+
+#caseStudyDesc {
+    text-align: left;
 }

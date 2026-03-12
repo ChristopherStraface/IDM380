@@ -16,5 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
         toggle.addEventListener('change', function (e) {
             toggleDarkMode(e.target.checked);
         });
+        toggle.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                toggle.checked = !toggle.checked;
+                toggleDarkMode(toggle.checked);
+            }
+        });
     }
 });
