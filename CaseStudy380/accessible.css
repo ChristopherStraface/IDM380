@@ -101,6 +101,12 @@ img {
     margin-bottom: -5px;
 }
 
+.case-img {
+    width: 1050px;
+    height: 600px;
+    border: solid #370E48 2px;
+}
+
 /* =========================
    Layout Containers
 ========================= */
