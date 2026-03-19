@@ -1187,8 +1187,8 @@ body.dark-mode .dyslexia-button.active:hover {
     outline-offset: 2px;
 }
 
-.caseStudy1:focus-within,
-.caseStudy2:focus-within {
+.caseStudy1:focus,
+.caseStudy2:focus {
     outline: 3px solid peru;
     outline-offset: 3px;
 }
