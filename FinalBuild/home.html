@@ -24,17 +24,19 @@
         <div class="dropdown">
             <button class="dropdown-toggle" aria-label="Settings menu" aria-expanded="false">⚙️</button>
             <div class="dropdown-menu" aria-hidden="true">
-                <label class="switch" aria-label="Toggle dark mode">
-                    <input type="checkbox" id="darkModeToggle" aria-label="Dark mode toggle">
-                    <span class="slider" aria-hidden="true"></span>
-                </label>
+                <div class="toggle-container">
+                    <label class="switch" aria-label="Toggle dark mode">
+                        <input type="checkbox" id="darkModeToggle" aria-label="Dark mode toggle">
+                        <span class="slider" aria-hidden="true"></span>
+                    </label>
+                    <span class="toggle-label">Dark Mode Toggle</span>
+                </div>
                 <button id="dyslexiaToggle" class="dyslexia-button" aria-pressed="false">Dyslexia-Friendly Mode</button>
             </div>
         </div>
         <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">&#9776;</button>
     </nav>
-<br>
-<br>
+
     <!-- Portfolio Introduction -->
     <main id="test" role="main" aria-label="Main content">
         <section id="intro" class="imgAndText" role="region" aria-labelledby="headingtitle" tabindex="0">
@@ -45,13 +47,11 @@
 
             <p id="projectSegue">Below are examples of projects I have worked on:</p>
         </section>
-        <br>
-        <br>
+
         <h2>Projects:</h2>
-        <section id="projects" role="region" aria-labelledby="projects-heading" tabindex="0">
+        <section id="projects" role="region" aria-labelledby="projects-heading">
             <h2 id="projects-heading" class="sr-only">Portfolio Projects</h2>
-            <a class="workLinks" href="https://digmstudents.westphal.drexel.edu/~cs3878/idm232/"
-                target="_blank" aria-label="View PHP Developed Recipes Website project">
+            <div class="workLinks">
                 <div class="caseStudy1">
                     <h4>Solo Project</h4>
                     <h1 id="caseStudyHeader">PHP Developed Recipes Website</h1>
@@ -61,21 +61,23 @@
                         list of instructions were added to a database and connected to this website
                         in PHP, and given an interface with HTML, CSS, and JavaScript.
                     </h3>
-                        <h4>#UserResearch #BackEndDevelopment #TeamCollaboration #CompetitiveAnalysis</h4>
+                    <h4>#UserResearch #BackEndDevelopment #TeamCollaboration #CompetitiveAnalysis</h4>
+                    <a class="caseStudyBtn" href="https://digmstudents.westphal.drexel.edu/~cs3878/idm232/"
+                        target="_blank" aria-label="View PHP Developed Recipes Website project">View Project</a>
                 </div>
-            </a>
+            </div>
 
-            <a class="workLinks" href="https://cs3878-idm241-finalbuild.netlify.app/"
-                target="_blank" aria-label="View UX Microinteractions Research and Development project">
+            <div class="workLinks">
                 <div class="caseStudy2">
                     <h4>Solo Project</h4>
                     <h1 id="caseStudyHeader">UX Microinteractions Research and Development</h1>
                     <img src="media/microHero.png" alt="UX microinteractions research and development project homepage with a screenshot of the remade interactions from Drexel Catalog website and a list of microinteractions improved" class="caseStudyImg">
                     <h3 id="caseStudyDesc">I improved the microinteractions of 5 objects on the Drexel Catalog website, and created a fully functional build of the site with those improvements present. I also provided detailed descriptions for each improved microinteraction, so that anyone can understand exactly what is happening with each interaction present.</h3>
-                    </h3>
-                        <h4>#UserResearch #Development #Microinteractions #UIDesign</h4>
+                    <h4>#UserResearch #Development #Microinteractions #UIDesign</h4>
+                    <a class="caseStudyBtn" href="https://cs3878-idm241-finalbuild.netlify.app/"
+                        target="_blank" aria-label="View UX Microinteractions Research and Development project">View Project</a>
                 </div>
-            </a>
+            </div>
         </section>
     </main>
     <!-- Script that contains functions for toggling navigation menu, dark mode, and having dark mode stay toggled on/off while visiting different pages -->
