@@ -7,16 +7,17 @@
     <title>Home cs3878</title>
     <link rel="stylesheet" href="accessible.css">
     <script src="script.js" defer></script>
+    <link rel="icon" href="media/Selfie.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <!-- Skip link for keyboard users -->
     <a class="skip-link" href="#intro">Skip Navigation</a>
-    
+
     <!-- Navigation Menu -->
     <nav class="topnavcontainer" aria-label="Main navigation">
-        <ul class="topnav" id="mainNav" role="menubar">
+        <ul class="topnav" id="mainNav" role="menubar" aria-label="Main navigation">
             <li role="none"><a href="home.html" role="menuitem">Home</a></li>
             <li role="none"><a href="about.html" role="menuitem">About</a></li>
             <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
@@ -34,15 +35,19 @@
                 <button id="dyslexiaToggle" class="dyslexia-button" aria-pressed="false">Dyslexia-Friendly Mode</button>
             </div>
         </div>
-        <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">&#9776;</button>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false"
+            aria-controls="mainNav">&#9776;</button>
     </nav>
 
     <!-- Portfolio Introduction -->
     <main id="test" role="main" aria-label="Main content">
         <section id="intro" class="imgAndText" role="region" aria-labelledby="headingtitle" tabindex="0">
             <h1 id="headingtitle">Hello there, my name is Christopher Straface</h1>
-            <p class="intropHome">I study User Experience and Interaction Design at Drexel University. I love designing beautiful,
-                highly functional interfaces that satisfy user needs. I have a passion for helping others experience the world better through optimized UX, and this portfolio serves as an example of that passion and as a collection of what I have accomplished as a
+            <p class="intropHome">I study User Experience and Interaction Design at Drexel University. I love designing
+                beautiful,
+                highly functional interfaces that satisfy user needs. I have a passion for helping others experience the
+                world better through optimized UX, and this portfolio serves as an example of that passion and as a
+                collection of what I have accomplished as a
                 designer.</p>
 
             <p id="projectSegue">Below are examples of projects I have worked on:</p>
@@ -53,11 +58,14 @@
             <h2 id="projects-heading" class="sr-only">Portfolio Projects</h2>
             <div class="workLinks">
                 <div class="caseStudy1" tabindex="0" aria-label="Case study: PHP Developed Recipes Website">
-                    <h4>Solo Project</h4>
-                    <h1 id="caseStudyHeader">PHP Developed Recipes Website</h1>
-                    <img src="media/recipeHero.png" alt="recipe website homepage with a search bar and recipe cards displayed below" class="caseStudyImg">
-                    <h3 id="caseStudyDesc">I developed from scratch a recipe website that displays over 40 recipes, which
-                        are all connected from a database using PHP. Every image, recipe title and 
+                    <h3>Solo Project</h3>
+                    <h3 id="caseStudyHeader">PHP Developed Recipes Website</h3>
+                    <img src="media/recipeHero.png"
+                        alt="recipe website homepage with a search bar and recipe cards displayed below"
+                        class="caseStudyImg">
+                    <h3 id="caseStudyDesc">I developed from scratch a recipe website that displays over 40 recipes,
+                        which
+                        are all connected from a database using PHP. Every image, recipe title and
                         list of instructions were added to a database and connected to this website
                         in PHP, and given an interface with HTML, CSS, and JavaScript.
                     </h3>
@@ -68,14 +76,20 @@
             </div>
 
             <div class="workLinks">
-                <div class="caseStudy2" tabindex="0" aria-label="Case study: UX Microinteractions Research and Development">
-                    <h4>Solo Project</h4>
-                    <h1 id="caseStudyHeader">UX Microinteractions Research and Development</h1>
-                    <img src="media/microHero.png" alt="UX microinteractions research and development project homepage with a screenshot of the remade interactions from Drexel Catalog website and a list of microinteractions improved" class="caseStudyImg">
-                    <h3 id="caseStudyDesc">I improved the microinteractions of 5 objects on the Drexel Catalog website, and created a fully functional build of the site with those improvements present. I also provided detailed descriptions for each improved microinteraction, so that anyone can understand exactly what is happening with each interaction present.</h3>
+                <div class="caseStudy2" tabindex="0"
+                    aria-label="Case study: UX Microinteractions Research and Development">
+                    <h3>Solo Project</h3>
+                    <h3 id="caseStudyHeader">UX Microinteractions Research and Development</h3>
+                    <img src="media/microHero.png"
+                        alt="UX microinteractions research and development project homepage with a screenshot of the remade interactions from Drexel Catalog website and a list of microinteractions improved"
+                        class="caseStudyImg">
+                    <h3 id="caseStudyDesc">I improved the microinteractions of 5 objects on the Drexel Catalog website,
+                        and created a fully functional build of the site with those improvements present. I also
+                        provided detailed descriptions for each improved microinteraction, so that anyone can understand
+                        exactly what is happening with each interaction present.</h3>
                     <h4>#UserResearch #Development #Microinteractions #UIDesign</h4>
-                    <a class="caseStudyBtn" href="https://cs3878-idm241-finalbuild.netlify.app/"
-                        target="_blank" aria-label="View UX Microinteractions Research and Development project">View Project</a>
+                    <a class="caseStudyBtn" href="https://cs3878-idm241-finalbuild.netlify.app/" target="_blank"
+                        aria-label="View UX Microinteractions Research and Development project">View Project</a>
                 </div>
             </div>
         </section>

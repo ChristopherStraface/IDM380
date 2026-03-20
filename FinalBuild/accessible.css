@@ -1,4 +1,10 @@
 /* =========================
+   Google Fonts
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* =========================
    Base
 ========================= */
 
@@ -9,7 +15,7 @@ body {
     color: #3C2B15;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'DM Sans', Arial, sans-serif;
     text-align: center;
     box-sizing: border-box;
 }
@@ -21,47 +27,47 @@ body {
 h1 {
     color: #370E48;
     font-size: clamp(2.5em, 0.5rem + 2vw, 4rem);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
+    font-family: 'DM Serif Display', Verdana, serif;
+    font-weight: normal;
     margin: 0.5em 0;
     padding: 0.5em;
 }
 
 h2 {
     font-size: clamp(2.1785rem, 0.5rem + 2vw, 3.5rem);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
+    font-family: 'DM Serif Display', Verdana, serif;
+    font-weight: normal;
     margin: 0.5em 0;
     padding: 0.5em;
 }
 
 h3 {
     font-size: clamp(2rem, 0.5rem + 2vw, 3rem);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
+    font-family: 'DM Serif Display', Verdana, serif;
+    font-weight: normal;
     margin: 0.5em 0;
     padding: 0.5em;
 }
 
 h4 {
     font-size: clamp(1.5rem, 0.5rem + 2vw, 2.5rem);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-weight: 700;
     margin: 0.5em 0;
     padding: 0.5em;
 }
 
 h5 {
     font-size: clamp(1.125rem, 0.5rem + 2vw, 1.5rem);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-weight: 700;
     margin: 0.5em 0;
     padding: 0.5em;
 }
 
 p {
     color: #3C2B15;
-    font-family: Arial, sans-serif;
+    font-family: 'DM Sans', Arial, sans-serif;
     font-size: clamp(1.25rem, 0.5rem + 2vw, 1.45rem);
     margin: 1em auto;
     padding: 1.5em;
@@ -92,7 +98,7 @@ p {
 a {
     color: #0043BF;
     text-decoration: underline;
-    font-family: Arial, sans-serif;
+    font-family: 'DM Sans', Arial, sans-serif;
     padding: 5px;
 }
 
@@ -115,12 +121,20 @@ img {
     width: 80%;
     max-width: 320px;
     height: auto;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
     display: block;
     border: 0.5rem solid #370E48;
+}
+
+.aboutImg {
+    width: 450px;
+    height: 450px;
+    border: 0.4rem solid #370E48;
+    border-radius: 12px;
+    object-fit: cover;
 }
 /* =========================
    Layout Containers
@@ -256,6 +270,27 @@ address ul {
     padding: 14px 20px;
     font-size: 17px;
     text-decoration: none;
+    position: relative;
+}
+
+/* Animated underline on nav links */
+.topnav a::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background-color: #FFE7CD;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+    border-radius: 2px;
+}
+
+.topnav a:hover::after,
+.topnav a:focus::after {
+    transform: scaleX(1);
 }
 
 /* Hamburger menu button — hidden on desktop, shown on mobile */
@@ -722,7 +757,7 @@ body.dyslexia-mode h5 {
 }
 
 body.dyslexia-mode p {
-    font-family: 'OpenDyslexic-Regular', 'Arial', sans-serif;
+    font-family: 'OpenDyslexic-Regular', 'DM Sans', 'Arial', sans-serif;
     letter-spacing: 0.15em;
     word-spacing: 0.2em;
     line-height: 2;
@@ -996,7 +1031,17 @@ body.dark-mode .dyslexia-button.active:hover {
     .caseStudy1 h1, .caseStudy1 h3, .caseStudy1 h4,
     .caseStudy2 h1, .caseStudy2 h3, .caseStudy2 h4 {
         font-size: 1rem !important;
-    }
+    } 
+
+    .aboutImg {
+    width: 250px;
+    height: 250px;
+    border: 0.4rem solid #370E48;
+    border-radius: 12px;
+    object-fit: cover;
+    }   
+
+    
 }
 
 /* Tablets and medium devices: 481px - 768px */
@@ -1144,6 +1189,12 @@ body.dark-mode .dyslexia-button.active:hover {
 /* Intro section vertical layout */
 #intro.imgAndText {
     flex-direction: column;
+    border-left: 5px solid #370E48;
+    padding-left: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 860px;
+    text-align: left;
 }
 
 /* Projects section — horizontal card layout */
@@ -1170,14 +1221,14 @@ body.dark-mode .dyslexia-button.active:hover {
     background-color: #370E48;
     color: white !important;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 100px;
     font-size: 0.95rem;
-    font-family: Arial, sans-serif;
+    font-family: 'DM Sans', Arial, sans-serif;
     font-weight: bold;
     align-self: center;
     margin-top: auto;
     padding-top: 14px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .caseStudyBtn:hover,
@@ -1185,6 +1236,7 @@ body.dark-mode .dyslexia-button.active:hover {
     background-color: #5c1a78;
     outline: 3px solid peru;
     outline-offset: 2px;
+    transform: translateY(-2px);
 }
 
 .caseStudy1:focus,
@@ -1196,7 +1248,7 @@ body.dark-mode .dyslexia-button.active:hover {
 /* Case study styles */
 .caseStudy1, .caseStudy2, .caseStudy3, .caseStudy4, .caseStudy5, .caseStudy6, .caseStudy7 {
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 16px;
     color: white;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     margin-bottom: 0;
@@ -1207,6 +1259,14 @@ body.dark-mode .dyslexia-button.active:hover {
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    box-shadow: 0 8px 28px rgba(55, 14, 72, 0.18);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.caseStudy1:hover, .caseStudy2:hover, .caseStudy3:hover,
+.caseStudy4:hover, .caseStudy5:hover, .caseStudy6:hover, .caseStudy7:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(55, 14, 72, 0.28);
 }
 
 .caseStudy1::before, .caseStudy2::before, .caseStudy3::before, .caseStudy4::before, .caseStudy5::before, .caseStudy6::before, .caseStudy7::before {
